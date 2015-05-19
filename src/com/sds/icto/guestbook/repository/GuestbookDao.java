@@ -1,4 +1,4 @@
-package com.sds.icto.guestbook.dao;
+package com.sds.icto.guestbook.repository;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,7 +10,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.sds.icto.guestbook.vo.GuestbookVo;
+import com.sds.icto.guestbook.domain.GuestbookVo;
+import com.sds.icto.guestbook.exception.GuestbookDaoException;
 
 @Repository
 public class GuestbookDao {
@@ -18,17 +19,10 @@ public class GuestbookDao {
 	PreparedStatement stmt = null;
 	ResultSet rs = null;
 	
-	
-	private Connection getConnection(){
-		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			String dbURL = "jdbc:oracle:thin:@localhost:1521:xe";
-			conn = DriverManager.getConnection(dbURL, "webdb", "webdb");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	private Connection getConnection() throws ClassNotFoundException, SQLException{
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		String dbURL = "jdbc:oracle:thin:@localhost:1521:xe";
+		conn = DriverManager.getConnection(dbURL, "webdb", "webdb");
 		return conn;
 	}
 	
@@ -44,8 +38,8 @@ public class GuestbookDao {
 			
 			if(stmt!=null)stmt.close();
 			if(conn!=null)conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (SQLException | ClassNotFoundException e) {
+			throw new GuestbookDaoException();
 		}
 	}
 	
@@ -59,8 +53,8 @@ public class GuestbookDao {
 			
 			if(stmt!=null)stmt.close();
 			if(conn!=null)conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (SQLException | ClassNotFoundException e) {
+			throw new GuestbookDaoException();
 		}
 		
 	}
@@ -83,8 +77,8 @@ public class GuestbookDao {
 			if(rs!=null)rs.close();
 			if(stmt!=null)stmt.close();
 			if(conn!=null)conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (SQLException | ClassNotFoundException e) {
+			throw new GuestbookDaoException();
 		}
 		return vo;
 	}
@@ -108,8 +102,8 @@ public class GuestbookDao {
 			if(rs!=null)rs.close();
 			if(stmt!=null)stmt.close();
 			if(conn!=null)conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (SQLException | ClassNotFoundException e) {
+			throw new GuestbookDaoException();
 		}
 		return list;
 	}

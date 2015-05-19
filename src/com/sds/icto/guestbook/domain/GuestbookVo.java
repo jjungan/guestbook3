@@ -1,4 +1,4 @@
-package com.sds.icto.guestbook.vo;
+package com.sds.icto.guestbook.domain;
 
 import java.sql.Date;
 

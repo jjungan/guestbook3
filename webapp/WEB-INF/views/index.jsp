@@ -12,10 +12,10 @@
 	<table border=1 width=500>
 		<tr>
 			<td>이름</td><td><input type="text" name="name" required="required"></td>
-			<td>비밀번호</td><td><input type="password" name="pass" required="required"></td>
+			<td>비밀번호</td><td><input type="password" name="password" required="required"></td>
 		</tr>
 		<tr>
-			<td colspan=4><textarea name="content" cols=60 rows=5 required="required"></textarea></td>
+			<td colspan=4><textarea name="message" cols=60 rows=5 required="required"></textarea></td>
 		</tr>
 		<tr>
 			<td colspan=4 align=right><input type="submit" VALUE=" 확인 "></td>
@@ -29,7 +29,7 @@
 				<td>[${status.count}]</td>
 				<td>${vo.name }</td>
 				<td>${vo.regDate }</td>
-				<td><a href="/guestbook3/delete&no=${vo.no }">삭제</a></td>
+				<td><a href="/guestbook3/delete?no=${vo.no }">삭제</a></td>
 			</tr>
 			<tr>
 				<td colspan=4>${vo.message }</td>
